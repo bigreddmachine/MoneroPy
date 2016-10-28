@@ -1664,11 +1664,14 @@ n = 1626
 # Note about US patent no 5892470: Here each word does not represent a given digit.
 # Instead, the digit represented by a word is variable, it depends on the previous word.
 
+def mn_swap_endian(word):
+    return "".join([word[i:i+2] for i in [6, 4, 2, 0]])
+
 def mn_encode( message ):
     assert len(message) % 8 == 0
     out = []
     for i in range(len(message)/8):
-        word = message[8*i:8*i+8]
+        word = mn_swap_endian(message[8*i:8*i+8])
         x = int(word, 16)
         w1 = (x%n)
         w2 = ((x/n) + w1)%n
@@ -1684,7 +1687,7 @@ def mn_decode( wlist ):
         w2 = (words.index(word2))%n
         w3 = (words.index(word3))%n
         x = w1 +n*((w2-w1)%n) +n*n*((w3-w2)%n)
-        out += '%08x'%x
+        out += mn_swap_endian('%08x'%x)
     return out
 
 
