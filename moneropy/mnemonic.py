@@ -34,6 +34,8 @@
 #     https://github.com/monero-project/monero/blob/master/src/mnemonics/english.h
 #     Most recent commit: de0392685063d93dbdad3a6b1a2712eaf94dd51a
 
+from binascii import crc32
+
 words = [
     "abbey",
     "abducts",
@@ -1664,6 +1666,19 @@ words = [
 ]
 
 n = 1626
+
+def mn_checksum(wlist):
+    if len(wlist) > 13:
+        wlist = wlist[:24]
+    else:
+        wlist = wlist[:12]
+    wstr = "".join(word[:3] for word in wlist)
+    z = ((crc32(wstr.encode()) & 0xffffffff) ^ 0xffffffff ) >> 0
+    z2 = ((z ^ 0xffffffff) >> 0) % len(wlist)
+    return wlist[z2]
+
+def mn_validate_checksum(wlist):
+    return True if mn_checksum(wlist) == wlist[-1] else False
 
 def mn_swap_endian(word):
     return "".join([word[i:i+2] for i in [6, 4, 2, 0]])
