@@ -22,11 +22,14 @@
 # ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
+#
+# Note about US patent no 5892470: Here each word does not represent a given digit.
+# Instead, the digit represented by a word is variable, it depends on the previous word.
+#
 # Copied 28 October 2016 from Electrum:
 #     https://github.com/spesmilo/electrum/blob/master/lib/old_mnemonic.py
 #     Most recent commit: 305843999eabdb4276109e3dc6b70bf21dbbc29a
-
+#
 # list of words from:
 #     https://github.com/monero-project/monero/blob/master/src/mnemonics/english.h
 #     Most recent commit: de0392685063d93dbdad3a6b1a2712eaf94dd51a
@@ -1657,45 +1660,43 @@ words = [
     "zodiac",
     "zombie",
     "zones",
-    "zoom"]
+    "zoom"
+]
 
 n = 1626
-
-# Note about US patent no 5892470: Here each word does not represent a given digit.
-# Instead, the digit represented by a word is variable, it depends on the previous word.
 
 def mn_swap_endian(word):
     return "".join([word[i:i+2] for i in [6, 4, 2, 0]])
 
-def mn_encode( message ):
-    assert len(message) % 8 == 0
+def mn_encode(message):
+    assert len(message)%8 == 0
     out = []
     for i in range(len(message)//8):
         word = mn_swap_endian(message[8*i:8*i+8])
         x = int(word, 16)
-        w1 = (x%n)
-        w2 = ((x//n) + w1)%n
-        w3 = ((x//n//n) + w2)%n
-        out += [ words[w1], words[w2], words[w3] ]
+        w1 = x%n
+        w2 = (x//n + w1)%n
+        w3 = (x//n//n + w2)%n
+        out += [words[w1], words[w2], words[w3]]
     return out
 
-def mn_decode( wlist ):
-    out = ''
+def mn_decode(wlist):
+    out = ""
     for i in range(len(wlist)//3):
         word1, word2, word3 = wlist[3*i:3*i+3]
-        w1 =  words.index(word1)
-        w2 = (words.index(word2))%n
-        w3 = (words.index(word3))%n
-        x = w1 +n*((w2-w1)%n) +n*n*((w3-w2)%n)
-        out += mn_swap_endian('%08x'%x)
+        w1 = words.index(word1)
+        w2 = words.index(word2)%n
+        w3 = words.index(word3)%n
+        x = w1 + n*((w2-w1)%n) + n*n*((w3-w2)%n)
+        out += mn_swap_endian("%08x"%x)
     return out
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
-    if len( sys.argv ) == 1:
-        print('I need arguments: a hex string to encode, or a list of words to decode')
-    elif len( sys.argv ) == 2:
-        print(' '.join(mn_encode(sys.argv[1])))
+    if len(sys.argv) == 1:
+        print("I need arguments: a hex string to encode, or a list of words to decode")
+    elif len(sys.argv) == 2:
+        print(" ".join(mn_encode(sys.argv[1])))
     else:
         print(mn_decode(sys.argv[1:]))
