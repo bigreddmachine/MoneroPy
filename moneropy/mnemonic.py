@@ -34,6 +34,7 @@
 #     https://github.com/monero-project/monero/blob/master/src/mnemonics/english.h
 #     Most recent commit: de0392685063d93dbdad3a6b1a2712eaf94dd51a
 
+from __future__ import print_function
 from binascii import crc32
 
 words = [
