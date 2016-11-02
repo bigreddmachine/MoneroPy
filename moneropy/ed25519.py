@@ -167,7 +167,7 @@ def sqroot(xx):
     print("no square root!")
   return x
 
-def edwards_Minus(P, Q): #added
+def edwards_Minus(P, Q):
   x1 = P[0]
   y1 = P[1]
   x2 = (-1 * Q[0]) % q
@@ -176,7 +176,6 @@ def edwards_Minus(P, Q): #added
   y3 = (y1*y2+x1*x2) * inv(1-d*x1*x2*y1*y2)
   return [x3 % q,y3 % q]
 
-#added scalarmultbase
 def scalarmultbase(e):
   if e == 0: return [0,1]
   Q = scalarmult(B,e//2)
@@ -189,9 +188,7 @@ def decodepointcheck(s):
   x = xrecover(y)
   if x & 1 != bit(s,b-1): x = q-x
   P = [x,y]
-  #print("actually checking if it's on curve!")
   if not isoncurve(P):
-    #print("not on curve")
     quit()
     raise Exception("decoding point that is not on curve")
   return P
