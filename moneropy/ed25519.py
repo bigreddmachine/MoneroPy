@@ -144,7 +144,7 @@ def radix255(x):
   x = [x,0,0,0,0,0,0,0,0,0]
   bits = [26,25,26,25,26,25,26,25,26,25]
   for i in range(9):
-    carry = (x[i] + 2**(bits[i]-1)) / 2**bits[i]
+    carry = (x[i] + 2**(bits[i]-1)) // 2**bits[i]
     x[i] -= carry * 2**bits[i]
     x[i + 1] += carry
   result = ""
@@ -160,7 +160,7 @@ def computeA():
   return 2 *((1 - d) % q) * inv((1 + d) % q) % q
 
 def sqroot(xx):
-  x = expmod(xx,(q+3)/8,q)
+  x = expmod(xx,(q+3)//8,q)
   if (x*x - xx) % q != 0:
     x = (x*I) % q
   if (x*x - xx) % q != 0:
@@ -179,7 +179,7 @@ def edwards_Minus(P, Q): #added
 #added scalarmultbase
 def scalarmultbase(e):
   if e == 0: return [0,1]
-  Q = scalarmult(B,e/2)
+  Q = scalarmult(B,e//2)
   Q = edwards(Q,Q)
   if e & 1: Q = edwards(Q,B)
   return Q
