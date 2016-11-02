@@ -1,5 +1,14 @@
-# Source: https://ed25519.cr.yp.to/python/ed25519.py
-# The Ed25519 software is in the public domain.
+# The reference Ed25519 software is in the public domain.
+#     Source: https://ed25519.cr.yp.to/python/ed25519.py
+#     Date accessed: 2 Nov. 2016
+#
+# Additions at bottom are based on Shen Noether's ed25519.py in MiniNero.
+#     Source: https://github.com/monero-project/mininero/blob/master/ed25519.py
+#     Most recent commit: bda9d2c33d1baeb4fefccfcc16105b131535cdf1
+#     Date accessed: 2 Nov. 2016
+#
+# Additions and changes made to the original sources are released as specified
+# in 'LICENSE' document distributed with this software.
 
 import hashlib
 
@@ -107,8 +116,6 @@ def checkvalid(s, m, pk):
     raise Exception("signature does not pass verification")
 
 # ----------
-# The following additions are from Shen Noether's ed25519.py in MiniNero.
-# Source: https://github.com/monero-project/mininero/blob/master/ed25519.py
 
 # Copyright (c) 2014-2016, The Monero Project
 #
