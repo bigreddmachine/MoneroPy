@@ -11,6 +11,23 @@
 # in 'LICENSE' document distributed with this software.
 
 import hashlib
+import operator
+import sys
+
+# Set up byte handling for Python 2 or 3
+if sys.version_info.major == 2:
+  int2byte = chr
+  range = xrange
+
+  def indexbytes(buf, i):
+    return ord(buf[i])
+
+  def intlist2bytes(l):
+    return b"".join(chr(c) for c in l)
+else:
+  indexbytes = operator.getitem
+  intlist2bytes = bytes
+  int2byte = operator.methodcaller("to_bytes", 1, "big")
 
 b = 256
 q = 2**255 - 19
@@ -60,16 +77,16 @@ def scalarmult(P, e):
 
 def encodeint(y):
   bits = [(y >> i) & 1 for i in range(b)]
-  return ''.join([chr(sum([bits[i*8 + j] << j for j in range(8)])) for i in range(b//8)])
+  return b''.join([int2byte(sum([bits[i*8 + j] << j for j in range(8)])) for i in range(b//8)])
 
 def encodepoint(P):
   x = P[0]
   y = P[1]
   bits = [(y >> i) & 1 for i in range(b-1)] + [x & 1]
-  return ''.join([chr(sum([bits[i * 8 + j] << j for j in range(8)])) for i in range(b//8)])
+  return b''.join([int2byte(sum([bits[i * 8 + j] << j for j in range(8)])) for i in range(b//8)])
 
 def bit(h, i):
-  return (ord(h[i//8]) >> (i%8)) & 1
+  return (indexbytes(h, i//8) >> (i%8)) & 1
 
 def publickey(sk):
   h = H(sk)
@@ -84,7 +101,7 @@ def Hint(m):
 def signature(m, sk, pk):
   h = H(sk)
   a = 2**(b-2) + sum(2**i * bit(h, i) for i in range(3, b-2))
-  r = Hint(''.join([h[i] for i in range(b//8, b//4)]) + m)
+  r = Hint(intlist2bytes([indexbytes(h, j) for j in range(b//8, b//4)]) + m)
   R = scalarmult(B, r)
   S = (r + Hint(encodepoint(R)+pk+m) * a) % l
   return encodepoint(R) + encodeint(S)
