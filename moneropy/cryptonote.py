@@ -6,9 +6,9 @@
 # top-level directory of this distribution.
 
 from binascii import hexlify
-import ed25519
-import utils
-from Keccak import Keccak
+from . import ed25519
+from . import utils
+from .Keccak import Keccak
 
 b = ed25519.b
 q = ed25519.q

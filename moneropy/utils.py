@@ -1,7 +1,7 @@
 import sys
 from binascii import hexlify
 from binascii import unhexlify
-import ed25519
+from . import ed25519
 
 PYTHON_VERSION = sys.version_info.major
 

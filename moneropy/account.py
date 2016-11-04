@@ -5,9 +5,9 @@
 # this software is subject to the license terms in the LICENSE file found in the
 # top-level directory of this distribution.
 
-import mnemonic as _mn
-import cryptonote as _cn
-import base58 as _b58
+from . import mnemonic as _mn
+from . import cryptonote as _cn
+from . import base58 as _b58
 
 ADDRESS_VERSION = "12"
 
