@@ -37,8 +37,9 @@ def account_from_spend_key(sk, acct_type='simplewallet'):
       - addr (str) -- Monero address
     '''
     if acct_type == 'mymonero':
-        vk = get_view_key(sk)
-        sk = _cn.sc_reduce(sk)
+        sk_hashed = _cn.cn_fast_hash(sk)
+        vk = get_view_key(sk_hashed)
+        sk = _cn.sc_reduce(sk_hashed)
     elif acct_type == 'simplewallet':
         sk = _cn.sc_reduce(sk)
         vk = get_view_key(sk)
