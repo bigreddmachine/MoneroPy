@@ -11,11 +11,11 @@
 # in 'LICENSE' document distributed with this software.
 
 import hashlib
-import operator
-import sys
+import operator as _oper
+import sys as _sys
 
 # Set up byte handling for Python 2 or 3
-if sys.version_info.major == 2:
+if _sys.version_info.major == 2:
     int2byte = chr
     range = xrange
 
@@ -25,9 +25,9 @@ if sys.version_info.major == 2:
     def intlist2bytes(l):
         return b"".join(chr(c) for c in l)
 else:
-    indexbytes = operator.getitem
+    indexbytes = _oper.getitem
     intlist2bytes = bytes
-    int2byte = operator.methodcaller("to_bytes", 1, "big")
+    int2byte = _oper.methodcaller("to_bytes", 1, "big")
 
 b = 256
 q = 2**255 - 19
