@@ -1669,6 +1669,7 @@ words = [
 n = 1626
 
 def mn_checksum(wlist):
+    '''Given a mnemonic seed word list, return a string of the seed checksum.'''
     if len(wlist) > 13:
         wlist = wlist[:24]
     else:
@@ -1679,12 +1680,16 @@ def mn_checksum(wlist):
     return wlist[z2]
 
 def mn_validate_checksum(wlist):
+    '''Given a mnemonic seed word list, check if checksum word is valid.
+    Returns boolean value.
+    '''
     return True if mn_checksum(wlist) == wlist[-1] else False
 
 def mn_swap_endian(word):
     return "".join([word[i:i+2] for i in [6, 4, 2, 0]])
 
 def mn_encode(message):
+    '''Given a hexadecimal key string, return it's mnemonic representation.'''
     assert len(message)%8 == 0
     out = []
     for i in range(len(message)//8):
@@ -1697,6 +1702,7 @@ def mn_encode(message):
     return out
 
 def mn_decode(wlist):
+    '''Given a mnemonic word list, return a hexadecimal encoded string.'''
     out = ""
     for i in range(len(wlist)//3):
         word1, word2, word3 = wlist[3*i:3*i+3]
