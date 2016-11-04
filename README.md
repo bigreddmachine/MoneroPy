@@ -1,8 +1,7 @@
-# moneropy
+# MoneroPy - A python toolbox for Monero.
 
-Copyright (c) 2016, bigreddmachine
-
-A python toolbox for Monero.
+Copyright (c) 2016 The MoneroPy Developers.  
+All rights reserved.
 
 ## License
 
