@@ -57,3 +57,6 @@ domain, and both are written in pure Python. Therefore, key and address
 derivation using MoneroPy should be considered vulnerable to side-channel
 attacks, and should not be used on shared hardware to prevent, for example,
 potential timing attacks.
+
+MoneroPy uses `os.urandom` to generate a secure mnemonic seed for new wallet
+creation. Do not use on systems with poor `os.urandom` entropy sources.
