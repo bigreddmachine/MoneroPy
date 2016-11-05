@@ -8,6 +8,7 @@
 from . import mnemonic as _mn
 from . import cryptonote as _cn
 from . import base58 as _b58
+from . import utils as _utils
 
 ADDRESS_VERSION = "12"
 
@@ -70,3 +71,35 @@ def account_from_seed(seed, acct_type='simplewallet'):
     '''
     sk = _mn.mn_decode(seed)
     return account_from_spend_key(sk, acct_type)
+
+def gen_new_wallet_seed():
+    '''Generate a new, secure 25-word Monero wallet seed.
+
+    Example:
+      seed = gen_new_wallet_seed()
+
+    Outputs:
+      - seed (list) -- mnemonic recovery seed
+    '''
+    sk = _utils.gen_random_hex()
+    seed = _mn.mn_encode(sk)
+    seed.append(_mn.mn_checksum(seed))
+    return seed
+
+def gen_new_wallet():
+    '''Generate a secure new wallet, including mnemonic seed, spend and view
+    keys, and wallet address.
+
+    Example:
+      seed, sk, vk, addr = gen_new_wallet()
+
+    Outputs:
+      - seed (list) -- mnemonic recovery seed
+      - sk (str) -- private spend key
+      - vk (str) -- private view key
+      - addr (str) -- Monero address
+    '''
+    seed = gen_new_wallet_seed()
+    sk, vk, addr = account_from_seed(seed)
+
+    return seed, sk, vk, addr
