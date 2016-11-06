@@ -35,7 +35,7 @@
 #     Most recent commit: de0392685063d93dbdad3a6b1a2712eaf94dd51a
 
 from __future__ import print_function
-from binascii import crc32
+from binascii import crc32 as _crc32
 
 words = [
     "abbey",
@@ -1675,7 +1675,7 @@ def mn_checksum(wlist):
     else:
         wlist = wlist[:12]
     wstr = "".join(word[:3] for word in wlist)
-    z = ((crc32(wstr.encode()) & 0xffffffff) ^ 0xffffffff ) >> 0
+    z = ((_crc32(wstr.encode()) & 0xffffffff) ^ 0xffffffff ) >> 0
     z2 = ((z ^ 0xffffffff) >> 0) % len(wlist)
     return wlist[z2]
 
