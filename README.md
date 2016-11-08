@@ -50,7 +50,7 @@ Data for testing is stored in `tests/testdata.py`.
 
 ## Disclaimer
 
-This package uses Daniel J. Bernstein's reference Python implementation, adapted
+This package uses Daniel J. Bernstein's reference ed25519 Python implementation, adapted
 for Python 3 compatibility. In addition, it uses Renaud Bauvin's reference
 Keccak sponge function implementation (v3.2). Both are available in the public
 domain, and both are written in pure Python. Therefore, key and address
