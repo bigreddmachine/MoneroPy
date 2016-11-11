@@ -20,7 +20,7 @@ def encode_addr(version, publicSpendKey, publicViewKey):
     '''Given address version and public spend and view keys, derive address.'''
     data = version + publicSpendKey + publicViewKey
     checksum = _cn.cn_fast_hash(data)
-    return _b58.b58encode(data + checksum[0:8])
+    return _b58.encode(data + checksum[0:8])
 
 def account_from_spend_key(sk, acct_type='simplewallet'):
     '''Given a private spend key, derive private view key and address.
