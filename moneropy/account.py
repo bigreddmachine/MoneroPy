@@ -116,3 +116,10 @@ def gen_new_wallet():
     sk, vk, addr = account_from_seed(seed)
 
     return seed, sk, vk, addr
+
+def check_address_viewkey(addr, privateViewKey):
+    vs, pk, vk = decode_addr(addr)
+    viewKeyValid = False
+    if vk == _cn.public_from_secret(privateViewKey):
+        viewKeyValid = True
+    return viewKeyValid
