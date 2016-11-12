@@ -22,6 +22,19 @@ def encode_addr(version, publicSpendKey, publicViewKey):
     checksum = _cn.cn_fast_hash(data)
     return _b58.encode(data + checksum[0:8])
 
+def decode_addr(addr):
+    '''Given address, get version and public spend and view keys.'''
+    d = _b58.decode(addr)
+    addr_checksum = d[-8:]
+    calc_checksum = _cn.cn_fast_hash(d[:-8])[:8]
+    if addr_checksum == calc_checksum:
+        version = d[:2]
+        publicSpendKey = d[2:66]
+        publicViewKey = d[66:130]
+        return version, publicSpendKey, publicViewKey
+    else:
+        return "Invalid Address", [], []
+
 def account_from_spend_key(sk, acct_type='simplewallet'):
     '''Given a private spend key, derive private view key and address.
 
