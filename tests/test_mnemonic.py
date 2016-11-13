@@ -7,20 +7,20 @@ mn = moneropy.mnemonic
 class TestMnemonic(unittest.TestCase):
 
     def test_checksum_valid(self):
-        def T(seed, isValid):
-            self.assertEqual(mn.mn_validate_checksum(seed), isValid)
+        def T(seed):
+            self.assertTrue(mn.mn_validate_checksum(seed))
 
         for i in range(len(valid_seeds)):
             # Input 13 or 25 word seed.
             # Checks that last word matches checksum calculation
-            T(valid_seeds[i], True)
+            T(valid_seeds[i])
 
     def test_checksum_invalid(self):
-        def T(seed, isValid):
-            self.assertEqual(mn.mn_validate_checksum(seed), isValid)
+        def T(seed):
+            self.assertFalse(mn.mn_validate_checksum(seed))
 
         for i in range(len(invalid_seeds)):
-            T(invalid_seeds[i], False)
+            T(invalid_seeds[i])
 
     def test_checksum(self):
         def T(seed, checksum):
