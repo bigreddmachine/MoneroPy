@@ -27,6 +27,22 @@ valid_addrs = [
     '48vTj54ZtU7e6sqwcJY9uq2LApd3Zi6H23vmYFc3wMteS2QzJwi2Z1xCLVwMac55h2HnQAiYwZTceJbwMZJRrm3uNh76Hci',
     '48oYzqzeGqY3Nfg6LG8HwS3uF1Y3vV2gfRH6ZMcnhhEmUgkL2mPSjtuSekenrYGkbp8RNvAvrtq3r7Ze4iPoBH3kFK9vbgP'
 ]
+addr_vers = '12'
+valid_addr_pubsks = [
+    '426a2b555065c79b8d6293c5dd18c25a25bae1a8b8c67ceac7484133e6798579',
+    '975e989ae39b7b9445ac7384edb7a598efe3fbfab6c0bd72c5372fadd86071e9',
+    'b9e8cd1f42a48c55166f75ead8293e0ad1c420f566b9c85562572936207557dd',
+    'c09d10f3c5f580ddd0765063d9246007f45ef025a76c7d117fe4e811fa78f395',
+    'bd785822c5e8330e30cc7e6e7abd3d11579da04e4131d091255172583059aea5'
+]
+valid_addr_pubvks = [
+    'bba3444bd48d5d9fcffa64d805e3977b07e2d420a2212df3d612a5dbcc676538',
+    '5096d3b5eedd396ea5c521456640fb27ebb5a222269eac49e1ddac7134735ea0',
+    '08613f96d197024ea651e8f226feb03b71aa82f487cb6eff518a30a3b6a2514f',
+    '9c66f7487c1bef43c64ee0ace763116456666a389eea3b693cd7670c3515a0c0',
+    '8501a7d7657332995b54357cc02c972c5cf5b2d1804d4d273c6f214854c9cf7e'
+]
+
 
 # These can be tested against valid_addrs for base588 encode/decode
 decoded_addrs = [
