@@ -118,6 +118,14 @@ def gen_new_wallet():
     return seed, sk, vk, addr
 
 def check_address_viewkey(addr, privateViewKey):
+    '''Check that a private viewkey belongs to an address.
+
+    Example:
+      isGood = check_address_viewkey(addr, privViewKey)
+
+    Output:
+      - isGood (bool)
+    '''
     vs, pk, vk = decode_addr(addr)
     viewKeyValid = False
     if vk == _cn.public_from_secret(privateViewKey):
