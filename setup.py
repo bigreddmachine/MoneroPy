@@ -10,7 +10,7 @@ setup(
     version = "0.0.1",
     description = "A python toolbox for Monero.",
     long_description=read('README.md'),
-    url = "https://github.com/Monero-Monitor/moneropy",
+    url = "https://github.com/monero-monitor/moneropy",
     keywords = "monero",
     packages=['moneropy'],
     classifiers=[
