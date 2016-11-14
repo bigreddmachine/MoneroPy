@@ -11,6 +11,17 @@ This Python 2/3 package aims to be a resource for Monero actions. The package
 implements basic Monero cryptography, mnemonic key derivation, and key and
 address creation.
 
+Future additions and improvements include developing routines for checking if
+transaction outputs belong to a Monero address, if outputs have been spent, and
+creating and signing outputs. As this is a being developed under a best-effort
+model, there is not a set timeline for the completion of these or other tasks.
+If you would like to see progress made in a certain area, feel free to
+contribute.
+
+Currently, this package is a pure Python implementation of Monero tools and
+protocol. Future improvements may include using the Monero reference C and C++
+libraries for some or all cryptography and other functions.
+
 ## Installation
 
 MoneroPy will be added to Python's pip once development has somewhat stabilized.
