@@ -41,3 +41,73 @@ def gen_random_hex(n_bytes=32):
 def gen_payment_id():
     '''Generate a 32-byte random hexadecimal string to use as a payment ID.'''
     return gen_random_hex(32)
+
+def parse_extra_hex(h):
+    '''Parse the extra field of a Monero transaction.
+
+    Example:
+      pub, pay_id = parse_extra(b)
+
+    Input:
+      - h (hex) -- tx extra field
+
+    Outputs:
+      - pub (str) -- hexadecimal transaction public key
+      - pay_id (str) -- hexadecimal transaction payment id
+    '''
+    pub = ''
+    pay_id = ''
+    b = _b58._hexToBin(h)
+
+    if b[0] == 1: # pubkey is tag 1
+        pub = h[2:66] # pubkey is 32 bytes # = _b58._binToHex(b[1:33])
+
+        if b[33] == 2 and b[35] == 0 or b[35] == 1:
+            pay_id = h[72:(72+b[34]*2-2)] # = _b58._binToHex(b[36:(36+b[34]-1)])
+
+    elif b[0] == 2:
+        if b[2] == 0 or b[2] == 1:
+            pay_id = h[6:(6+b[1]*2+2)] # = _b58._binToHex(b[3:(3+b[1]+1)])
+
+        # second byte of nonce is nonce payload length
+        # pubkey tag location: payload length + nonce tag byte + payload length byte
+        if b[2+b[1]] == 1:
+            offset = (2+b[1]) * 2 # = 2 + b[1]
+            pub = h[(offset+2):(offset+2+64)] # = _b58._binToHex(b[(offset+1):(offset+1+32)])
+
+    return pub, pay_id
+
+def parse_extra_bin(b):
+    '''Parse the extra field of a Monero transaction.
+
+    Example:
+      pub, pay_id = parse_extra(b)
+
+    Input:
+      - b (bin) -- tx extra field
+
+    Outputs:
+      - pub (str) -- hexadecimal transaction public key
+      - pay_id (str) -- hexadecimal transaction payment id
+    '''
+    pub = ''
+    pay_id = ''
+    h = _b58._binToHex(b)
+
+    if b[0] == 1: # pubkey is tag 1
+        pub = h[2:66] # pubkey is 32 bytes # = _b58._binToHex(b[1:33])
+
+        if b[33] == 2 and b[35] == 0 or b[35] == 1:
+            pay_id = h[72:(72+b[34]*2-2)] # = _b58._binToHex(b[36:(36+b[34]-1)])
+
+    elif b[0] == 2:
+        if b[2] == 0 or b[2] == 1:
+            pay_id = h[6:(6+b[1]*2+2)] # = _b58._binToHex(b[3:(3+b[1]+1)])
+
+        # second byte of nonce is nonce payload length
+        # pubkey tag location: payload length + nonce tag byte + payload length byte
+        if b[2+b[1]] == 1:
+            offset = (2+b[1]) * 2 # = 2 + b[1]
+            pub = h[(offset+2):(offset+2+64)] # = _b58._binToHex(b[(offset+1):(offset+1+32)])
+
+    return pub, pay_id
