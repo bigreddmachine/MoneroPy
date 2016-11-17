@@ -3,6 +3,7 @@ import os as _os
 from binascii import hexlify
 from binascii import unhexlify
 from .crypto import ed25519 as ed25519
+from . import base58 as _b58
 
 PYTHON_VERSION = _sys.version_info.major
 
