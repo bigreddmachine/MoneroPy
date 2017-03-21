@@ -39,9 +39,13 @@ def gen_random_hex(n_bytes=32):
     h = hexlify(_os.urandom(n_bytes))
     return "".join(h.decode("utf-8"))
 
-def gen_payment_id():
-    '''Generate a 32-byte random hexadecimal string to use as a payment ID.'''
-    return gen_random_hex(32)
+def gen_payment_id(id_type='normal'):
+    '''Generate a 64-bit or 32-byte random hexadecimal payment ID.'''
+    if id_type == 'integrated': # 64-bit Payment ID for integrated addresses
+        pid = gen_random_hex(8)
+    else: # 32-byte regular hexadecimal payment ID
+        pid = gen_random_hex(32)
+    return pid
 
 def parse_extra_hex(h):
     '''Parse the extra field of a Monero transaction.
