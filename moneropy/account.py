@@ -59,8 +59,7 @@ def make_integrated_addr(addr, paymentID=None):
     '''Given address and 64-bit payment ID, generate integrated address.'''
     if paymentID == None:
         paymentID = _utils.gen_payment_id('integrated')
-    vers, psk, pvk = decode_addr(addr)
-    print(vers)
+    _, psk, pvk = decode_addr(addr)
     vers = '13'
     return encode_integrated_addr(vers, psk, pvk, paymentID)
 
