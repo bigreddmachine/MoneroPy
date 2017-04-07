@@ -1,9 +1,12 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 # Utility function to read the README file.
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
 
 setup(
     name = "moneropy",
@@ -12,7 +15,8 @@ setup(
     long_description=read('README.md'),
     url = "https://github.com/monero-monitor/moneropy",
     keywords = "monero",
-    packages=['moneropy'],
+    packages=find_packages(),
+    install_requires=requirements,
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Topic :: Utilities",
