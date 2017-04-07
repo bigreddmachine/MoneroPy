@@ -8,7 +8,7 @@
 from binascii import hexlify, unhexlify
 from .crypto import ed25519
 from . import utils
-from .crypto.Keccak import Keccak
+#from .crypto.Keccak import Keccak
 import sys
 import sha3
 
